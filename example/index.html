@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+  <title>AllTransitionEnd Event Example</title>
+  <meta name="description" content="All Transition End" />
+
+  <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="../all-transition-end-event.js"></script>
+  <link href="styles.css" rel="stylesheet" />
+</head>
+<body>
+
+  <h1>All Transition End Event Example</h1>
+
+  <p>The object will go through multiple transitions. When all transitions have ended, the object color will change, and a log message will be displayed.</p>
+
+  <div class="canvas">
+    <div class="object"></div>
+  </div>
+
+  <h3>Log</h3>
+
+  <p>Transition end event messages will appear below.</p>
+
+  <div class="log"></div>
+
+  <h3>Issues</h3>
+
+  <ul>
+    <li>Doesn't fire if the element has no transitions.</li>
+    <li>IE8: Doesn't support transitions. Users should bind to both allTransitionEnd and another supported event as a fallback.</li>
+  </ul>
+
+  <script>
+    $(function () {
+
+      /* simply bind to allTransitionEnd and do your stuff! */
+      $('.object').on('allTransitionEnd', function (event) {
+        $('.object').css({
+          'background-color': helpers.randomColor()
+        });
+
+        helpers.log('all transition end');
+      });
+
+      var helpers = {};
+
+      helpers.log = function (message) {
+        var time = (new Date()).toLocaleTimeString();
+
+        $('<div class="message"></div>').html(time + ': ' + message).prependTo('.log');
+      };
+
+      helpers.randomColor = function () {
+        return '#'+Math.floor(Math.random()*16777215).toString(16);
+      };
+
+      helpers.transitionEnd = (function () {
+        var transitionEndEvents = [
+          'webkitTransitionEnd',
+          'oTransitionEnd',
+          'otransitionend',
+          'transitionend'
+        ];
+        return transitionEndEvents.join(' ');
+      })();
+
+
+      $('.object').on(helpers.transitionEnd, function (event) {
+        var property = event.originalEvent.propertyName;
+        helpers.log(property + ' transition end');
+      });
+
+      $('.object').on('click', function () {
+        $(this).toggleClass('transition');
+      });
+
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+.canvas, .log {
+  height: 100px;
+  background-color: #fff;
+  overflow: auto;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.object {
+  background-color: green;
+  height: 70px;
+  width: 70px;
+  line-height: 70px;
+  border-radius: 50%;
+  text-align: center;
+  position: relative;
+  top: 0;
+  left: 0;
+  color: #fff;
+  -webkit-transition:
+    height .3s .3s,
+    width .3s .3s,
+    top .3s,
+    left .3s;
+  transition:
+    height .3s .3s,
+    width .3s .3s,
+    top .3s,
+    left .3s;
+}
+
+.object:before {
+  content: 'Click Me!';
+}
+
+.object.transition {
+  height: 30px;
+  width: 30px;
+  top: 10px;
+  left: 50%;
+}
+
+.object.transition:before {
+  content: "";
+}
