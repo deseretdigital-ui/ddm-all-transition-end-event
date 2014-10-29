@@ -1,0 +1,7 @@
+{
+  "name": "ddm-all-transition-end-event",
+  "devDependencies": {
+    "gulp": "^3.8.9",
+    "gulp-gh-pages": "^0.4.0"
+  }
+}
